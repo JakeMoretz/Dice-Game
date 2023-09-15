@@ -16,19 +16,22 @@ body {
     border-radius: 30px;
     background-color: #F5F5F5;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
+    
 }
 
 .die {
-    height: 80px;
-    width: 80px;
+    height: 70px;
+    width: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2em;
-    border-radius: 5px;
+    border-radius: 10px;
+    background-color: white;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    cursor: pointer;
 }
 
 .die-container {
@@ -38,3 +41,31 @@ body {
     gap: 40px;
 }
 
+.die-value {
+    font-size: 2em;
+    font-weight: 600;
+}
+
+
+.roll-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 100px;
+    background-color: #5035FF;
+    color: white;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+}
+
+.roll-btn:focus {
+    outline: none;
+}
+
+.roll-btn:active {
+    box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}

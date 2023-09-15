@@ -1,7 +1,8 @@
-export default function Die() {
+/* eslint-disable react/prop-types */
+export default function Die(props) {
     return (
         <section className = "die">  
-                1   
+               <p className="die-value">{props.value}</p> 
         </section>
     )
 }
