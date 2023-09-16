@@ -2,22 +2,22 @@
 import './App.css';
 import React from 'react';
 import { nanoid } from 'nanoid';
+import Confetti from 'react-confetti';
 import Die from './components/Die';
 
 export default function App() {
     const [dice, setDice] = React.useState(allNewDice());
     const [tenzies, setTenzies] = React.useState(false);
 
-     React.useEffect(() => {
-        const allHeld = dice.every(item => item.isHeld)
-        const firstValue = dice[0].value
-        const allHeldValues = dice.every(item => item.value === firstValue)
+    React.useEffect(() => {
+        const allHeld = dice.every((item) => item.isHeld);
+        const singleValue = dice[0].value;
+        const allSameValue = dice.every((item) => item.value === singleValue);
 
-        if(allHeld && allHeldValues) {
-            setTenzies(true)
-            console.log("you won!")
+        if (allHeld && allSameValue) {
+            setTenzies(true);
         }
-     }, [dice])
+    }, [dice]);
 
     function generateDice() {
         return {
@@ -36,11 +36,16 @@ export default function App() {
     }
 
     function rollDice() {
-        setDice((prevState) =>
-            prevState.map((item) => {
-                return item.isHeld ? item : generateDice();
-            })
-        );
+        if (!tenzies) {
+            setDice((prevState) =>
+                prevState.map((item) => {
+                    return item.isHeld ? item : generateDice();
+                })
+            );
+        } else {
+            setTenzies(false);
+            setDice(allNewDice());
+        }
     }
 
     function holdDice(id) {
@@ -67,14 +72,15 @@ export default function App() {
 
     return (
         <main className="main-container">
-            <h1>Tenzies</h1>
-            <p>
-                Roll until all dice are the same. Click each die to freeze it at
-                its current value between rolls.
+            {tenzies && <Confetti />}
+            <h1 className="title">Tenzies</h1>
+            <p className="description">
+                Roll until all dice are the same. <br /> Click each die to
+                freeze it at its current value between rolls.
             </p>
             <section className="die-container">{diceElements}</section>
             <button onClick={rollDice} className="roll-btn">
-                Roll
+                {tenzies ? <p>reset game</p> : <p>Roll</p>}
             </button>
         </main>
     );
