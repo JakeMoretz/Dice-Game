@@ -8,6 +8,9 @@ import Die from './components/Die';
 export default function App() {
     const [dice, setDice] = React.useState(allNewDice());
     const [tenzies, setTenzies] = React.useState(false);
+    const [rolls, setRolls] = React.useState(
+        JSON.parse(localStorage.getItem('rolls')) || 0
+    );
 
     React.useEffect(() => {
         const allHeld = dice.every((item) => item.isHeld);
@@ -18,6 +21,11 @@ export default function App() {
             setTenzies(true);
         }
     }, [dice]);
+
+    React.useEffect(() => {
+        localStorage.setItem('rolls', JSON.stringify(rolls));
+        console.log('Rolled');
+    }, [rolls]);
 
     function generateDice() {
         return {
@@ -37,6 +45,7 @@ export default function App() {
 
     function rollDice() {
         if (!tenzies) {
+            setRolls(rolls + 1);
             setDice((prevState) =>
                 prevState.map((item) => {
                     return item.isHeld ? item : generateDice();
@@ -45,6 +54,7 @@ export default function App() {
         } else {
             setTenzies(false);
             setDice(allNewDice());
+            setRolls(0);
         }
     }
 
@@ -78,6 +88,7 @@ export default function App() {
                 Roll until all dice are the same. <br /> Click each die to
                 freeze it at its current value between rolls.
             </p>
+            <h3 className="roll-count">Roll Count: {rolls}</h3>
             <section className="die-container">{diceElements}</section>
             <button onClick={rollDice} className="roll-btn">
                 {tenzies ? <p>reset game</p> : <p>Roll</p>}

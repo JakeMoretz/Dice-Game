@@ -92,6 +92,12 @@ body {
     line-height: 25px;
 }
 
+.roll-count {
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
 @media (max-width: 900px) {
     .main-container {
         height: 60vh;
