@@ -85,7 +85,7 @@ export default function App() {
             {tenzies && <Confetti />}
             <h1 className="title">Tenzies</h1>
             <p className="description">
-                Roll until all dice are the same. <br /> Click each die to
+                Roll until all numbers are the same. <br /> Click each box to
                 freeze it at its current value between rolls.
             </p>
             <h3 className="roll-count">Roll Count: {rolls}</h3>
